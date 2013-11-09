@@ -1,8 +1,11 @@
 #!/bin/sh
-# This script installs the required example config files before buildpack compilation.
+# This script installs the required example config files before buildpack
+# compilation.
+#
+# It also launches a postgresql server and a redis server, otherwise some rake
+# tasks can't be completed.
 
-set -ex
+set -e
 
-cp config/database.yml.production-sample config/database.yml
-cp config/redis.yml.sample config/redis.yml
-cp config/environments/production.rb.sample config/environments/production.rb
+sudo service postgresql start
+sudo service redis-server start
